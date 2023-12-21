@@ -2,10 +2,10 @@
 *A Full-Stack Video Game Backlog CRUD Application*
 *Utilizing IGDB API*
 
-## WIREFRAMES ##
+### WIREFRAMES ###
 ![Wireframe]
 
-## USER STORIES ##
+### USER STORIES ###
 As a user, I want the ability to... 
 ````
 - sign up.
@@ -38,11 +38,11 @@ As a user, I want the ability to...
 - delete games from my backlog 
 ````
 
-## TECHNOLOGY USED ##
+### TECHNOLOGY USED ###
 Node/Express/MongoDB
 IGDB api
 
-## ICEBOX FEATURES ##
-- leave text reviews for games that are viewable from the backlog
-- view other users backlogs and subsequent reviews
-- 'like' other users reviews 
+### ICEBOX FEATURES ###
+- user can leave text reviews for games that are viewable from their backlog
+- user can view other users backlogs and reviews
+- user can like other users reviews 
