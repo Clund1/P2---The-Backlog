@@ -1,6 +1,6 @@
-# **THE VG BACKLOGGER** #
-## *A Full-Stack Video Game Backlog CRUD Application* ##
-# Utilizing IGDB API #
+# ***THE VG BACKLOG*** #
+*A Full-Stack Video Game Backlog CRUD Application*
+*Utilizing IGDB API*
 
 ## WIREFRAMES ##
 ![Wireframe]
@@ -29,7 +29,7 @@ As a user, I want the ability to...
 - view my full backlog
 ````
 ````
-- view details about games in my backlog ( release year, genre, box art )
+- view details about games in my backlog ( release year, genre, box art, summary )
 ````
 ````
 - view and Edit Details of my Experience for each game in my backlog ( Played, Beaten, Completed )
