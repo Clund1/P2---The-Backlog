@@ -1,6 +1,6 @@
 # ***THE VG BACKLOG*** #
 **A Full-Stack Video Game Backlog CRUD Application**
-*Utilizing IGDB API*
+*Utilizing RAWGio API*
 
 ### WIREFRAMES ###
 ![ERD](/public/imgs/WFs/ERD.png)
@@ -10,29 +10,28 @@
 ### USER STORIES ###
 As a user, I want the ability to... 
 ````
-
 - Create Account
 
 - Sign In. 
 
 - Sign Out. 
 
-- create a Game Backlog
+- create my own Game Backlog
 
 - Search for & add games I've played to my backlog 
 
-- View full  Game backlog
+- View my full Game backlog
 
 - View Details About Games in Backlog (release, genre, cover, summary)
 
-- View & Edit Progress for each game in backlog (Played, Beaten, Completed)
+- View & Edit my Progress for each game in backlog (Played, Beaten, Completed)
 
 - delete games from my backlog 
 
 ````
 
 ### TECHNOLOGY USED ###
-Node/ Express/ MongoDB/ IGDB api
+Node/ Express/ MongoDB/ RAWGio api
 
 ### ICEBOX FEATURES ###
 - user can leave text reviews for games that are viewable from their backlog
