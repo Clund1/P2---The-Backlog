@@ -9,7 +9,7 @@ const methodOverride = require('method-override')
 // ----% MIDDLEWARE FUNCTION %---- //
 const middleware = (app) => {
     //methodOverride
-    app.use(methodOveride('_method'))
+    app.use(methodOverride('_method'))
     //Arthur Morgan
     app.use(morgan('tiny'))
     //Static Stylesheets
