@@ -1,17 +1,17 @@
-// ----% SERVER START %---- //
+//! ----% SERVER START %---- !//
 
 
-// ----% DEPENDENCIES %---- //
+//! ----% DEPENDENCIES %---- !//
 const express = require('express')
 require('dotenv').config()
 const path = require('path')
 const middleware = require('./utils/middleware')
 
-// ----% ROUTERS %---- //
+//! ----% ROUTERS %---- !//
+const UserRouter = require('./controllers/userControllers')
 
 
-
-// ----% CREATE APP OBJECT %---- //
+//! ----% CREATE APP OBJECT %---- !//
 const app = express()
 
 //view engine - ejs
@@ -20,16 +20,17 @@ app.set('view engine', 'ejs')
 
 
 
-// ----% MIDDLEWARE %---- // 
+//! ----% MIDDLEWARE %---- !// 
 middleware(app)
 
-// ----% ROUTES %---- //
+//! ----% ROUTES %---- !//
 app.get('/', (req,res) => {
-    res.render('home.ejs')
+    const { username, loggedIn, userId } = req.session
+    res.render('home.ejs', { username, loggedIn,  userId })
 })
+app.use('/users', UserRouter)
 
-
-// ----% SERVER LISTENER %---- //
+//! ----% SERVER LISTENER %---- !//
 const PORT = process.env.PORT
 app.listen(PORT, () => {
     console.log('THE SERVER HAS BEGUN')
@@ -37,4 +38,4 @@ app.listen(PORT, () => {
 
 
 
-// ----% SERVER END %---- //
+//! ----% SERVER END %---- !//

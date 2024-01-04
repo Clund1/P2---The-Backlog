@@ -1,0 +1,15 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container md">
+    <h2>Are you sure you would liek to logout?</h2>
+
+    <div class="btn-group">
+        <a href="/" class="btn btn-warning me-3">No, back to Homepage</a>
+
+        <form action="/users/logout?_method=DELETE" method="POST">
+            <input type="submit" class="btn btn-danger me-3" value="Yes, Log Me Out">
+        </form>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>
