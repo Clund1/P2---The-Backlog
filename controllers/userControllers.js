@@ -25,11 +25,12 @@ router.post('/signup', async (req, res) => {
         .then(user => {
             res.redirect('/users/login')
         })
-        .catch(error => {
+        .catch(err => {
             console.log('error')
-            res.send('Something is Wrong')
+            res.redirect(`/error?error=${err}`)
         })
 })
+
 
 //GET -> LOGIN - /users/login
 router.get('/login',(req, res) => {
@@ -43,7 +44,7 @@ router.post('/login', async (req, res) =>{
     const { username, password } = req.body
     //Search DB for User
     User.findOne({ username })
-    //Password Auth
+    //Authorization
     .then(async (user) => {
         if (user) {
             const result = await bcrypt.compare(password, user.password)
@@ -51,20 +52,22 @@ router.post('/login', async (req, res) =>{
                 req.session.username = username
                 req.session.loggedIn = true
                 req.session.userId = user.id
+                //Redirect to Homepage Landing if loggedIn
                 res.redirect('/')
+            //Redirect to Error if Login Incorrect
             } else {
-                res.send('Error, loser.')
+                res.redirect(`/error?error=Wrong%20Credentials10401`)
             }
         } else {
-            res.send('Error, loser.')
+            res.redirect(`/error?error=Wrong%20Credentials10402`)
         }
     })
-    .catch(error => {
+    .catch(err => {
         console.log('error')
-        res.send('Something is Wrong')
+        res.redirect(`/error?error=${err}`)
     })
-
 })
+
 
 //GET -> LOGOUT
 router.get('/logout',(req, res) => {
