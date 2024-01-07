@@ -72,7 +72,7 @@ router.get('/backlog/:id', (req, res) =>{
     Game.findById(req.params.id)
     //Display Show Page
 .then(theGame => {
-    res.send(theGame)
+    res.render('games/backlogDetail', { place: theGame, username, loggedIn, userId })
 })
     //Or Redirect to Error Landing
     .catch(err => {
@@ -81,6 +81,34 @@ router.get('/backlog/:id', (req, res) =>{
     })
 })
 
+//DELETE -> /games/delete/:id
+// Removes games form Logged In users backlog
+router.delete('delete/:id', (req, res) =>{
+    const { username, loggedIn, userId } = req.session
+    //Target Game
+    const gameId = req.params.id
+    //Find Game in DB
+Game.findById(gameId)
+    //Delete it
+    .then(game => {
+        //Authorize Change
+        if (game.owner == userId) {
+            return game.deleteOne()
+        }else {
+            //If Not Authorized Redirect
+            res.redirect(`/error?error=You%20Can't%20Delete%20That`)
+        }
+    })
+    .then(deletedGame => {
+        res.redirect('/games/backlog')
+    })
+
+    //Or Error Landing
+    .catch(err => {
+        console.log('error')
+        res.redirect(`/error?error=${err}`)
+    })
+})
 
 //GET -> /games/:name
 router.get('/:name', (req, res) => {
@@ -100,6 +128,8 @@ router.get('/:name', (req, res) => {
         res.redirect(`/error?error=${err}`)
     })
 })
+
+
 
 //! ----% EXPORT ROUTER %---- !//
 module.exports = router
