@@ -81,6 +81,39 @@ router.get('/backlog/:id', (req, res) =>{
     })
 })
 
+// UPDATE -> /games/update/:id
+router.put('/update/:id', (req, res) => {
+    const { username, loggedIn, userId } = req.session
+    const gameId = req.params.id
+    const theUpdatedGame = req.body
+    delete theUpdatedGame.owner
+    theUpdatedGame.owner = userId
+    theUpdatedGame.owned = !!theUpdatedGame.owned
+    theUpdatedGame.played = !!theUpdatedGame.played
+    theUpdatedGame.completed = !!theUpdatedGame.completed
+    // Find game
+    Game.findById(gameId)
+        //Authorization Check
+        .then(foundGame => {
+            if (foundGame.owner == userId) {
+                // If Owner, update
+                return foundGame.updateOne(theUpdatedGame)
+            } else {
+                // If Not Owner, redirect
+                res.redirect(`/error?error=You%20Can't%20Delete%20That`)
+            }
+        })
+        .then(returnedGame => {
+            res.redirect(`/games/backlog/${gameId}`)
+        })
+        // if not, send error
+        .catch(err => {
+            console.log('error')
+            res.redirect(`/error?error=${err}`)
+        })
+})
+
+
 //DELETE -> /games/delete/:id
 // Removes games form Logged In users backlog
 router.delete('delete/:id', (req, res) =>{
