@@ -4,26 +4,19 @@ const { Schema, model } = mongoose
 
 //! ----% SCHEMA DEFINITION %---- !//
 const gameSchema = new Schema({
-    name: {
-        type: String,
+    name: { type: String, required: true },
+    background_image: { type: String, required: true },
+    description: { type: String, required: true },
+    platform: { type: String, required: true },
+    releaseDate: { type: Date, required: true },
+    owned: { type: Boolean, required: true },
+    played: { type: Boolean, required: true },
+    completed: { type: Boolean, required: true },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true
-    },
-    background_image: {
-        type: String,
-        required: true 
-    },
-    description: {
-        type: String,
-        required: true
-    },
-    platform: {
-        type: String,
-        required: true
-    },
-    releaseDate: {
-        type: Date,
-        required: true
-    },
+    }
 });
 
 //! ----% CREATE USER MODEL %---- !//

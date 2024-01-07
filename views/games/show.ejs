@@ -9,7 +9,6 @@
         <thead>
             <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Original Name</th>
                 <th scope="col">Platform</th>
                 <th scope="col">Description</th>
                 <th scope="col">Released</th>
@@ -19,7 +18,6 @@
         <tbody>
             <tr>
                 <td scope="row"><%= game.name %></td>
-                <td scope="row"><%= game.name_original %></td>
                 <td scope="row"><%= game.platform %></td>
                 <td scope="row"><%= game.description %></td>
                 <td scope="row"><%= game.released %></td>
@@ -27,6 +25,30 @@
             </tr>
         </tbody>
     </table>
+    <hr>
+    <% if (loggedIn) {%>
+        <h5>Add to Backlog?</h5>
+        <form action="/games/add" method="POST">
+            <fieldset> 
+                <input hidden type="text" name="name" value="<%= game.name %>">
+                <input hidden type="text" name="background_image" value="<%= game.background_image %>">
+                <input hidden type="text" name="description" value="<%= game.description %>">
+                <input hidden type="text" name="platform" value="<%= game.platform %>">
+                <input hidden type="date" name="releaseDate" value="<%= game.released %>">
+                <label for="owned">Own It?</label>
+                <input type="checkbox" name="owned" checked>
+                <label for="played">Played It?</label>
+                <input type="checkbox" name="played" checked>
+                <label for="completed">Completed It?</label>
+                <input type="checkbox" name="completed" checked>
+            </fieldset>
+            <input type="submit" class="btn btn-success" value="Add to Backlog">
+        </form>
+    <% } else {%>
+        <p>Login to Start A Backlog!</p>
+    <% } %>
+    <hr>
+    <a href="/games" class="btn btn-warning">Back to All Games</a>
 </div>
 
 <%- include('./partials/footer') %>

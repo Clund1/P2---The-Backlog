@@ -4,6 +4,7 @@ const axios = require('axios')
 const apiKey = process.env.API_KEY
 const allGamesUrl = process.env.API_GAMES_URL
 const gameDetailsUrl = process.env.API_GAMEDETAILS_URL
+const Game = require('../models/game')
 
 
 //! ----% CREATE ROUTER %---- !//
@@ -31,6 +32,41 @@ router.get('/games', (req, res) => {
         })
 })
 
+//POST -> /games/add
+router.post('/add', (req, res) => {
+    const { username, loggedIn, userId } = req.session
+    const theGame = req.body
+    theGame.owner = userId
+    theGame.owned = !!theGame.owned
+    theGame.played = !!theGame.played
+    theGame.completed = !!theGame.completed
+    Game.create(theGame)
+        .then(newGame => {
+            res.redirect(`/games/backlog`)
+        })
+        .catch(err => {
+            console.log('error')
+            res.redirect(`/error?error=${err}`)
+        })
+
+})
+
+//GET -> /games/backlog
+router.get('/backlog', (req, res) =>{
+    const { username, loggedIn, userId } = req.session
+    //query DB for Backlog of logged in user
+    Game.find({ owner: userId })
+    //Display Backlog
+    .then(userGames => {
+        res.send(userPlaces)
+    })
+    //Or Redirect Error Landing
+    .catch(err => {
+        console.log('error')
+        res.redirect(`/error?error=${err}`)
+    })
+})
+
 //GET -> /games/:name
 router.get('/:name', (req, res) => {
     const { username, loggedIn, userId } = req.session
@@ -43,7 +79,7 @@ router.get('/:name', (req, res) => {
         const foundGame = apiRes.data[0]
         res.render('games/show', { game: foundGame, username, loggedIn, userId })
     })
-    //Or Redirect Error Page
+    //Or Redirect Error Landing
     .catch(err => {
         console.log('error')
         res.redirect(`/error?error=${err}`)
