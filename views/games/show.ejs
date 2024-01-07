@@ -1,0 +1,32 @@
+<%- include('./partials/header') %>
+
+<div class="container center">
+    <h2><%= game.name </h2>
+    <div class="container col" style="width: 10rem">
+        <img src="<%= game.background_image.svg %>" alt="Cover" class="coverImg">
+    </div>
+    <table class="table tabe-striped mt-3">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Original Name</th>
+                <th scope="col">Platform</th>
+                <th scope="col">Description</th>
+                <th scope="col">Released</th>
+                <th scope="col">Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td scope="row"><%= game.name %></td>
+                <td scope="row"><%= game.name_original %></td>
+                <td scope="row"><%= game.platform %></td>
+                <td scope="row"><%= game.description %></td>
+                <td scope="row"><%= game.released %></td>
+                <td scope="row"><%= game.rating %></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<%- include('./partials/footer') %>

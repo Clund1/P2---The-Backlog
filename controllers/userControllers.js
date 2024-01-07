@@ -19,7 +19,8 @@ router.post('/signup', async (req, res) => {
     //Password Encryption - bcrypt
     newUser.password = await bcrypt.hash(
         newUser.password,
-        await bcrypt.genSalt(10))
+        await bcrypt.genSalt(10)
+    )
     //User Creation
     User.create(newUser)
         .then(user => {
@@ -35,31 +36,33 @@ router.post('/signup', async (req, res) => {
 //GET -> LOGIN - /users/login
 router.get('/login',(req, res) => {
     const { username, loggedIn, userId } = req.session
-    res.render('users/login', { username,loggedIn,userId })
+    res.render('users/login', { username, loggedIn, userId })
 })
 //POST -> LOGIN
 router.post('/login', async (req, res) =>{
-    // const { username, loggedIn, userId } =req.session
     //Pull User Credentials
     const { username, password } = req.body
     //Search DB for User
     User.findOne({ username })
     //Authorization
     .then(async (user) => {
+        //if user exists
         if (user) {
+            //compare password
             const result = await bcrypt.compare(password, user.password)
             if (result) {
+                //if passwords match, login & create session
                 req.session.username = username
                 req.session.loggedIn = true
                 req.session.userId = user.id
-                //Redirect to Homepage Landing if loggedIn
+                //Redirect to Homepage Landing 
                 res.redirect('/')
             //Redirect to Error if Login Incorrect
             } else {
-                res.redirect(`/error?error=Wrong%20Credentials10401`)
+                res.redirect(`/error?error=Wrong%20Credentials`)
             }
         } else {
-            res.redirect(`/error?error=Wrong%20Credentials10402`)
+            res.redirect(`/error`)
         }
     })
     .catch(err => {

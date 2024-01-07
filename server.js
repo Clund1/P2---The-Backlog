@@ -10,6 +10,7 @@ const middleware = require('./utils/middleware')
 
 //! ----% ROUTERS %---- !//
 const UserRouter = require('./controllers/userControllers')
+const GameRouter = require('./controllers/gameControllers')
 
 
 //! ----% CREATE APP OBJECT %---- !//
@@ -32,6 +33,7 @@ app.get('/', (req,res) => {
 })
 
 app.use('/users', UserRouter)
+app.use('/games', GameRouter)
 
 //Error Landing
 app.get('/error', (req, res) =>{
