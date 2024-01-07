@@ -1,0 +1,36 @@
+<%- include('./partials/header') %>
+
+<div class="container center">
+    <h2>All <%= username %>'s Games</h2>
+    <hr>
+    <table class="table tabe-striped mt-3">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Platform</th>
+                <th scope="col">Description</th>
+                <th scope="col">Released</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Owned</th>
+                <th scope="col">Played</th>
+                <th scope="col">Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% games.forEach((g) => { %>
+                <tr>
+                    <td scope="row"><a href="/games/backlog/<%= g.id %>"><%= g.name %></a></td>
+                    <td scope="row"><%= g.platform %></td>
+                    <td scope="row"><%= g.description %></td>
+                    <td scope="row"><%= g.released %></td>
+                    <td scope="row"><%= g.rating %></td>
+                    <td scope="row"><%= g.owned ? 'Y' : 'N' %></td>
+                    <td scope="row"><%= g.played ? 'Y' : 'N' %></td>
+                    <td scope="row"><%= g.completed ? 'Y' : 'N' %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('./partials/footer') %>

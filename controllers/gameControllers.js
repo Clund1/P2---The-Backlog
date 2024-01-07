@@ -48,7 +48,6 @@ router.post('/add', (req, res) => {
             console.log('error')
             res.redirect(`/error?error=${err}`)
         })
-
 })
 
 //GET -> /games/backlog
@@ -58,7 +57,7 @@ router.get('/backlog', (req, res) =>{
     Game.find({ owner: userId })
     //Display Backlog
     .then(userGames => {
-        res.send(userPlaces)
+        res.render('games/backlog', { games: userGames })
     })
     //Or Redirect Error Landing
     .catch(err => {
@@ -66,6 +65,22 @@ router.get('/backlog', (req, res) =>{
         res.redirect(`/error?error=${err}`)
     })
 })
+
+//GET -> /backlog/:id
+router.get('/backlog/:id', (req, res) =>{
+    //find games using ID
+    Game.findById(req.params.id)
+    //Display Show Page
+.then(theGame => {
+    res.send(theGame)
+})
+    //Or Redirect to Error Landing
+    .catch(err => {
+        console.log('error')
+        res.redirect(`/error?error=${err}`)
+    })
+})
+
 
 //GET -> /games/:name
 router.get('/:name', (req, res) => {
