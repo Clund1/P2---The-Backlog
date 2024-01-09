@@ -30,6 +30,7 @@ router.get('/games', (req, res) => {
             console.log('error')
             res.redirect(`/error?error=${err}`)
         })
+        console.log(Game)
 })
 
 //POST -> /games/add

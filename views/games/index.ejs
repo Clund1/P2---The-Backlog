@@ -1,10 +1,10 @@
-<%- include('./partials/header') %>
+<%- include('../partials/header.ejs') %>
 
 <div class="container center">
     <div class="container row text-center">
         <% games.forEach(function(g) {%>
             <div class="card mt-3 me-3 gameCard">
-                <img src="<%= g.background_image.svg %>" alt="Cover" class="card-img-top mt-3">
+                <img src="<%= g.background_image %>" alt="Cover" class="card-img-top mt-3">
                 <div class="card-body">
                     <h5 class="card-title"><%= g.name %></h5>
                     <a href="/games/<%= g.name %>" class="btn">Game Info</a>
@@ -14,4 +14,4 @@
     </div>
 </div>
 
-<%- include('./partials/footer') %>
+<%- include('../partials/footer.ejs') %>
