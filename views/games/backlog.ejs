@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            <% games.forEach((g) => { %>
+            <% games.results.forEach((g) => { %>
                 <tr>
                     <td scope="row"><a href="/games/backlog/<%= g.id %>"><%= g.name %></a></td>
                     <td scope="row"><%= g.platform %></td>

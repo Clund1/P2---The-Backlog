@@ -56,7 +56,7 @@ router.post('/login', async (req, res) =>{
                 req.session.loggedIn = true
                 req.session.userId = user.id
                 //Redirect to Homepage Landing 
-                res.redirect('/')
+                res.redirect('/games/index')
             //Redirect to Error if Login Incorrect
             } else {
                 res.redirect(`/error?error=Wrong%20Credentials`)
