@@ -7,7 +7,6 @@ const gameSchema = new Schema({
     name: { type: String, required: true },
     background_image: { type: String, required: true },
     description: { type: String, required: true },
-    platform: { type: String, required: true },
     releaseDate: { type: Date, required: true },
     owned: { type: Boolean, required: true },
     played: { type: Boolean, required: true },

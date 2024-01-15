@@ -13,7 +13,7 @@ const router = express.Router()
 
 //! ----% ROUTES & CONTROLLERS %---- !//
 //GET -> /games
-router.get('/games', (req, res) => {
+router.get('/', (req, res) => {
     const { username, loggedIn, userId } = req.session
     //Axios API Call & Render Index || Render Error
     axios(allGamesUrl, {
@@ -58,7 +58,7 @@ router.get('/backlog', (req, res) =>{
     Game.find({ owner: userId })
     //Display Backlog
     .then(userGames => {
-        res.render('games/backlog', { games: userGames })
+        res.render('games/backlog', { games: userGames, loggedIn, username, userId })
     })
     //Or Redirect Error Landing
     .catch(err => {
@@ -69,11 +69,12 @@ router.get('/backlog', (req, res) =>{
 
 //GET -> /backlog/:id
 router.get('/backlog/:id', (req, res) =>{
+    const { username, loggedIn, userId } = req.session
     //find games using ID
     Game.findById(req.params.id)
     //Display Show Page
 .then(theGame => {
-    res.render('games/backlogDetail', { place: theGame, username, loggedIn, userId })
+    res.render('games/backlogDetail', { game: theGame, username, loggedIn, userId })
 })
     //Or Redirect to Error Landing
     .catch(err => {
@@ -117,17 +118,18 @@ router.put('/update/:id', (req, res) => {
 
 //DELETE -> /games/delete/:id
 // Removes games form Logged In users backlog
-router.delete('delete/:id', (req, res) =>{
+router.delete('/delete/:id', (req, res) =>{
     const { username, loggedIn, userId } = req.session
     //Target Game
     const gameId = req.params.id
+    const theDeletedGame = req.body
     //Find Game in DB
 Game.findById(gameId)
     //Delete it
     .then(game => {
         //Authorize Change
         if (game.owner == userId) {
-            return game.deleteOne()
+            return game.deleteOne(theDeletedGame)
         }else {
             //If Not Authorized Redirect
             res.redirect(`/error?error=You%20Can't%20Delete%20That`)
@@ -144,16 +146,20 @@ Game.findById(gameId)
     })
 })
 
-//GET -> /games/:name
-router.get('/:name', (req, res) => {
+//GET -> /games/:id
+router.get('/:id', (req, res) => {
     const { username, loggedIn, userId } = req.session
-    const gameName = req.params.name
+    const gameId = req.params.id
     //API Call
-    axios(`${nameSearchBaseUrl}${gameName}`)
+    axios(gameDetailsUrl + gameId, {
+        params: {
+            key:apiKey
+        }
+    })
     //Render Show Page
     .then(apiRes => {
         console.log('this is apiRes.data: \n', apiRes.data)
-        const foundGame = apiRes.data[0]
+        const foundGame = apiRes.data
         res.render('games/show', { game: foundGame, username, loggedIn, userId })
     })
     //Or Redirect Error Landing

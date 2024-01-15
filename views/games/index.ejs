@@ -3,11 +3,11 @@
 <div class="container center">
     <div class="container row text-center">
         <% games.results.forEach((g) => { %>
-            <div class="card mt-3 me-3 gameCard">
+            <div class="card mt-3 me-3 mb-3 gameCard">
                 <img src="<%= g.background_image %>" alt="Cover" class="card-img-top mt-3">
                 <div class="card-body">
                     <h5 class="card-title"><%= g.name %></h5>
-                    <a href="/games/<%= g.id %>" class="btn">Game Info</a>
+                    <a href="/games/<%= g.id %>" class="btn mt-1 mb-1"> Click here for Info </a>
                 </div>
             </div>
         <% }) %> 

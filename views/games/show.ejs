@@ -1,9 +1,9 @@
 <%- include('../partials/header') %>
 
 <div class="container center">
-    <h2><%= game.name </h2>
+    <h2><%= game.name%></h2>
     <div class="container col" style="width: 10rem">
-        <img src="<%= game.background_image.svg %>" alt="Cover" class="coverImg">
+        <img src="<%= game.background_image %>" alt="Cover" class="coverImg">
     </div>
     <table class="table tabe-striped mt-3">
         <thead>
@@ -18,7 +18,7 @@
         <tbody>
             <tr>
                 <td scope="row"><%= game.name %></td>
-                <td scope="row"><%= game.platform %></td>
+                <td scope="row"><%= game.platforms.platform %></td>
                 <td scope="row"><%= game.description %></td>
                 <td scope="row"><%= game.released %></td>
                 <td scope="row"><%= game.rating %></td>

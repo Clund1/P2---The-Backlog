@@ -1,35 +1,27 @@
 <%- include('../partials/header') %>
 
 <div class="container center text-center">
-    <h2><%= game.name %></h2>
+    <div class="flex-row justify-content-center text-center">
+        <h2><%= game.name %></h2>
+    </div>
     <img src="<%=game.background_image%>" alt="cover" class="container center mt-3">
     <div class="container col" style="width: 10rem"></div>
     <table class="table table-striped mt-3">
         <thead>
             <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Platform</th>
-                <th scope="col">Description</th>
-                <th scope="col">Released</th>
-                <th scope="col">Rating</th>
                 <th scope="col">Owned</th>
                 <th scope="col">Played</th>
                 <th scope="col">Completed</th>
             </tr>
         </thead>
         <tbody>
-            <% games.forEach((g) => { %>
                 <tr>
-                    <td scope="row"><a href="games/games/backlog/<%= g.id %>"><%= g.name %></a></td>
-                    <td scope="row"><%= g.platform %></td>
-                    <td scope="row"><%= g.description %></td>
-                    <td scope="row"><%= g.released %></td>
-                    <td scope="row"><%= g.rating %></td>
-                    <td scope="row"><%= g.owned ? 'Y' : 'N' %></td>
-                    <td scope="row"><%= g.played ? 'Y' : 'N' %></td>
-                    <td scope="row"><%= g.completed ? 'Y' : 'N' %></td>
+                    <td scope="row"><a href="games/games/backlog/<%= game.id %>"><%= game.name %></a></td>
+                    <td scope="row"><%= game.owned ? 'Y' : 'N' %></td>
+                    <td scope="row"><%= game.played ? 'Y' : 'N' %></td>
+                    <td scope="row"><%= game.completed ? 'Y' : 'N' %></td>
                 </tr>
-            <% }) %>
         </tbody>
     </table>
     <% if (game.owner == userId) {%>
@@ -51,7 +43,7 @@
                     <input type="submit" class="btn btn-success" value="Update Game">
                 </fieldset>
             </form>
-            <form class="me-3" action="/games/delete/<%= game._id %>?_method=DELETE" method="POST">
+            <form class="me-3" action="/games/delete/<%= game.id %>?_method=DELETE" method="POST">
                 <input type="submit" class="btn btn-danger" value="Remove Game From Backlog">
             </form>
         </div>

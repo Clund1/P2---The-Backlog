@@ -1,9 +1,11 @@
 body {
-    background-color: burlywood;
+    background-color: brown;
+    background-image: url(imgs/VGBack.jpg);
+    justify-content: center;
 }
 
 .gameCard {
-    width: 25%;
+    width: 20%;
 }
 
 img {
@@ -12,6 +14,27 @@ img {
 }
 
 .coverImg {
-    width: 40%;
-    height: 40%;
+    width: 60%;
+    height: 60%;
+}
+
+h1 {
+    color: powderblue;
+}
+
+h2 {
+    justify-self: center;
+}
+
+.card-title {
+    color: darkslategray;
+    font: 2rem;
+}
+
+.btn {
+    background-color: powderblue;
+}
+
+.container-sm {
+    color: powderblue;
 }

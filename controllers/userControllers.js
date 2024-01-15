@@ -39,36 +39,33 @@ router.get('/login',(req, res) => {
     res.render('users/login', { username, loggedIn, userId })
 })
 //POST -> LOGIN
-router.post('/login', async (req, res) =>{
+router.post('/login', async (req, res) => {
     //Pull User Credentials
-    const { username, password } = req.body
+    const username = req.body.username
+    const password = req.body.password
     //Search DB for User
     User.findOne({ username })
     //Authorization
-    .then(async (user) => {
-        //if user exists
-        if (user) {
-            //compare password
-            const result = await bcrypt.compare(password, user.password)
-            if (result) {
-                //if passwords match, login & create session
-                req.session.username = username
-                req.session.loggedIn = true
-                req.session.userId = user.id
-                //Redirect to Homepage Landing 
-                res.redirect('/games/index')
-            //Redirect to Error if Login Incorrect
+        .then(async (user) => {
+            //if user exists
+            if (user) {
+                //compare password
+                const result = await bcrypt.compare(password, user.password)
+                if (result) {
+                    //if passwords match, login & create session
+                    req.session.username = username
+                    req.session.loggedIn = true
+                    req.session.userId = user.id
+                    //Redirect to Homepage Landing 
+                    res.redirect('/')
+                //Redirect to Error if Login Incorrect
+                } else {
+                    res.redirect(`/error?error=Wrong%20Credentials`)
+                }
             } else {
-                res.redirect(`/error?error=Wrong%20Credentials`)
-            }
-        } else {
-            res.redirect(`/error`)
-        }
-    })
-    .catch(err => {
-        console.log('error')
-        res.redirect(`/error?error=${err}`)
-    })
+                res.redirect(`/error`)
+            }}
+        )
 })
 
 
